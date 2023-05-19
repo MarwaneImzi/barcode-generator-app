@@ -17,6 +17,11 @@ const SaveBarcode = () => {
   barecodeStorage.value = JSON.parse(localStorage.getItem('barcodeData'))
 }
 
+const DeleteBarcodes = () => {
+  console.log('test')
+    localStorage.removeItem('barcodeData')
+    barecodeStorage.value = JSON.parse(localStorage.getItem('barcodeData'))
+}
 </script>
 
 <template>
@@ -51,6 +56,9 @@ const SaveBarcode = () => {
 
         <!-- Preview Box -->
         <BarcodeConvertor :bProp="barcodeProp" />
+        <button @click="DeleteBarcodes"
+        class="flex mx-auto text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg">Delete
+        All</button>
         <BarcodesView :bStorage="barecodeStorage"/>
       </div>
     </div>
