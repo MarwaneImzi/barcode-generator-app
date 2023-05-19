@@ -1,13 +1,20 @@
 <script setup>
-import { ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import BarcodesView from './components/BarcodesView.vue'
 import BarcodeConvertor from './components/JsBarcodeTool.vue'
 
 var barcodeProp = ref()
 var barcode = ref()
+var barecodeStorage = ref([])
+
+onMounted(() => {
+  barecodeStorage.value = JSON.parse(localStorage.getItem('barcodeData'))
+})
 
 const SaveBarcode = () => {
   barcodeProp.value = barcode.value
+
+  barecodeStorage.value = JSON.parse(localStorage.getItem('barcodeData'))
 }
 
 </script>
@@ -44,7 +51,7 @@ const SaveBarcode = () => {
 
         <!-- Preview Box -->
         <BarcodeConvertor :bProp="barcodeProp" />
-        <BarcodesView/>
+        <BarcodesView :bStorage="barecodeStorage"/>
       </div>
     </div>
   </div>

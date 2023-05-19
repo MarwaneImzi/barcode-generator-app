@@ -1,14 +1,21 @@
 <script setup>
 import { onMounted, onUpdated, ref } from 'vue';
 
-var barecodeStorage = ref([])
-barecodeStorage.value = JSON.parse(localStorage.getItem('barcodeData'))
+var props = defineProps(['bStorage'])
+onMounted(() => {
+    props.bStorage = JSON.parse(localStorage.getItem('barcodeData'))
+})
+onUpdated(() => {
+    console.log(props.bStorage)
+    
+})
+console.log(props.bStorage)
 
-console.log('Barcode View Test')
-console.log(barecodeStorage)
 
 </script>
 
 <template>
-    <div>{{ barecodeStorage }}</div>
+    <div v-for="item in props.bStorage" class="">
+        <img :src="item">
+    </div>
 </template>
