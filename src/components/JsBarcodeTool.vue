@@ -57,5 +57,8 @@ function SaveURL(url) {
 </script>
 
 <template>
-    <svg id="barcodeid" class=" w-11/12"></svg>
+    <span>
+        <svg id="barcodeid" class="m-2"></svg>
+    </span>
+    
 </template>

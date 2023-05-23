@@ -12,15 +12,14 @@ onMounted(() => {
 })
 
 const SaveBarcode = () => {
-  barcodeProp.value = barcode.value
-
+  barcodeProp.value = barcode.value.toUpperCase()
   barecodeStorage.value = JSON.parse(localStorage.getItem('barcodeData'))
 }
 
 const DeleteBarcodes = () => {
-  console.log('test')
-    localStorage.removeItem('barcodeData')
-    barecodeStorage.value = JSON.parse(localStorage.getItem('barcodeData'))
+  localStorage.removeItem('barcodeData')
+  barecodeStorage.value = JSON.parse(localStorage.getItem('barcodeData'))
+  window.location.reload()
 }
 </script>
 
@@ -29,7 +28,7 @@ const DeleteBarcodes = () => {
     <div>
       <!-- input area -->
       <div class="text-gray-400 bg-slate-900 body-font relative h-full min-h-screen">
-        <div class="container px-5 py-24 mx-auto">
+        <div class="container px-5 pt-24 mx-auto noPrint">
           <div class="flex flex-col text-center w-full mb-12">
             <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-white">Barcode Generator</h1>
             <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Generate barcodes for printing and scanning</p>
@@ -37,14 +36,13 @@ const DeleteBarcodes = () => {
           <div class="lg:w-1/2 md:w-2/3 mx-auto">
             <div class="flex flex-wrap -m-2">
 
-              <div class="p-2 w-1/2">
+              <div class="p-2 w-full">
                 <div class="relative">
                   <label for="barcode" class="leading-7 text-sm text-gray-400">Barcode (Code128)</label>
-                  <input type="text" v-model="barcode" v-on:keyup.enter="SaveBarcode"
+                  <input type="text" v-model="barcode" v-on:keyup.enter="SaveBarcode" style="text-transform: uppercase;"
                     class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-green-500 focus:bg-gray-900 focus:ring-2 focus:ring-green-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                 </div>
               </div>
-
               <div class="p-2 w-full">
                 <button @click="SaveBarcode"
                   class="flex mx-auto text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">Generate</button>
@@ -53,19 +51,36 @@ const DeleteBarcodes = () => {
             </div>
           </div>
         </div>
+        <div class="flex my-4 justify-center">
+          <button @click="DeleteBarcodes"
+                class="noPrint flex mx-2 text-black bg-slate-300 border-0 py-2 px-2 focus:outline-none hover:bg-red-600 rounded text-lg"><img src="./assets/trash-2.svg" alt="Clear Storage"></button>
+        <button onclick="window.print()"
+          class="noPrint flex mx-2 text-white bg-slate-300 border-0 py-2 px-2 focus:outline-none hover:bg-green-600 rounded text-lg"><img src="./assets/printer.svg" alt="Print"></button>
+        </div>
 
         <!-- Preview Box -->
-        <BarcodeConvertor :bProp="barcodeProp" />
-        <button @click="DeleteBarcodes"
-        class="flex mx-auto text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg">Delete
-        All</button>
-        <BarcodesView :bStorage="barecodeStorage"/>
+        <div class="container mx-auto">
+          <div class="flex flex-wrap-reverse justify-center">
+            <BarcodesView :bStorage="barecodeStorage" />
+            <BarcodeConvertor v-if="barcode != null" :bProp="barcodeProp" />
+          </div>
+        </div>
+
+        
+
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+@media print{
+  .noPrint{
+    display: none;
+}
+
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;

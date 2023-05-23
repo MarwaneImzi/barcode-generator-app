@@ -16,7 +16,7 @@ console.log(props.bStorage)
 <template>
 
     <br>
-    <div v-for="item in props.bStorage" class="">
+    <div class="m-2" v-for="item in props.bStorage">
         <img :src="item">
     </div>
 </template>
