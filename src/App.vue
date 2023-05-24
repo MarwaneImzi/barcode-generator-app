@@ -15,7 +15,7 @@ const SaveBarcode = () => {
 
 const DeleteBarcodes = () => {
   localStorage.removeItem('barcodeData')
-  barcodeProp.value = ''
+  barcode.value = ''
   barcodeProp.value = 'cleared'
 }
 
