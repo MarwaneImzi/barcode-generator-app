@@ -6,10 +6,13 @@ import BarcodeConvertor from './components/JsBarcodeTool.vue'
 var barcodeProp = ref()
 var barcode = ref()
 var barecodeStorage = ref([])
+var viewToggle = ref(false)
+var listViewCSS = ref('')
 
+console.log(viewToggle.value)
 
 const SaveBarcode = () => {
-  if(barcode.value != '' || barcode.value.trim() != ''){
+  if (barcode.value != '' || barcode.value.trim() != '') {
     barcodeProp.value = barcode.value.toUpperCase().trim()
   }
 }
@@ -56,23 +59,46 @@ function wait() {
             </div>
           </div>
         </div>
+        
+        <!-- Toggle list function  -->
+        <div class="container mx-auto flex justify-center mb-2 noPrint">
+          <span class="mx-3 text-sm font-medium text-gray-900 dark:text-gray-300">Printing</span>
+          <label class="relative inline-flex items-center mx-5 cursor-pointer">
+            <input type="checkbox" v-model="viewToggle" class="sr-only peer" checked>
+            <div
+              class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-green-300 dark:peer-focus:ring-green-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600">
+            </div>
+          </label>
+          <span class="mx-3 text-sm font-medium text-gray-900 dark:text-gray-300">Scanning</span>
+        </div>
         <div class="noPrint border-b-2 border-gray-700 container mx-auto"></div>
-                <!-- Preview Box -->
-                <div class="container mx-auto">
-          <div class="flex flex-wrap-reverse justify-center">
+        
+        
+        <!-- Preview Box -->
+        <div class="container mx-auto">
+          <div class="noPrint hidden" style>{{ listViewCSS = (!viewToggle) ? 'flex flex-wrap-reverse justify-center' : 'flex flex-col justify-center' }}</div>
+          <div :class="listViewCSS">
             <BarcodeConvertor :bProp="barcodeProp" style="display:none" />
             <!-- Really not good practice but i could not figure this out -->
             {{ wait() }}
-            <BarcodesView :bStorage="barecodeStorage" />
+            <BarcodesView :bStorage="barecodeStorage" :pToggle="viewToggle" />
           </div>
         </div>
+        
+        
         <div class="noPrint border-b-2 border-gray-700 container mx-auto"></div>
+        
+        <!-- Buttons  -->
         <div class="container mx-auto">
           <div class="flex mt-4 noPrint justify-around">
-            <a @click="DeleteBarcodes" class="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded">Clear</a>
-            <a onclick="window.print()" class="bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-500 hover:border-transparent rounded">Print</a>
+            <a @click="DeleteBarcodes"
+              class="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded">Clear</a>
+            <a onclick="window.print()"
+              class="bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-500 hover:border-transparent rounded">Print</a>
           </div>
         </div>
+      
+      
       </div>
     </div>
   </div>

@@ -1,14 +1,13 @@
 <script setup>
-import { onMounted, onUpdated, ref } from 'vue';
-
-var props = defineProps(['bStorage'])
-
+var props = defineProps(['bStorage', 'pToggle'])
 </script>
 
 <template>
-
     <br>
-    <div class="m-2" v-for="item in props.bStorage">
+    <span v-if="!props.pToggle" class="m-2" v-for="item in props.bStorage">
         <img :src="item">
-    </div>
+    </span>
+    <span v-else class=" my-7 mx-auto" v-for="item in props.bStorage">
+        <img :src="item" width="400">
+    </span>
 </template>
