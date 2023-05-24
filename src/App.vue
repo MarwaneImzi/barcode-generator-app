@@ -9,8 +9,10 @@ var barecodeStorage = ref([])
 
 
 const SaveBarcode = () => {
-  barcodeProp.value = barcode.value.toUpperCase().trim()
+  if(barcode.value != '' || barcode.value.trim() != ''){
+    barcodeProp.value = barcode.value.toUpperCase().trim()
   console.log(barcode)
+  }
 }
 
 const DeleteBarcodes = () => {
@@ -55,14 +57,14 @@ function wait() {
             </div>
           </div>
         </div>
-        <div class="flex my-4 justify-center">
-          <button @click="DeleteBarcodes"
-            class="noPrint flex mx-2 text-black bg-slate-300 border-0 py-2 px-2 focus:outline-none hover:bg-red-600 rounded text-lg"><img
-              src="./assets/trash-2.svg" alt="Clear Storage"></button>
-          <button onclick="window.print()"
-            class="noPrint flex mx-2 text-white bg-slate-300 border-0 py-2 px-2 focus:outline-none hover:bg-green-600 rounded text-lg"><img
-              src="./assets/printer.svg" alt="Print"></button>
+        <div class="border-b-2 border-gray-500 container mx-auto"></div>
+        <div class="container mx-auto">
+          <div class="flex my-4 noPrint justify-between">
+            <a @click="DeleteBarcodes" class="cursor-pointer hover:underline">Clear</a>
+            <a onclick="window.print()" class="cursor-pointer hover:underline">Print</a>
+          </div>
         </div>
+
 
         <!-- Preview Box -->
         <div class="container mx-auto">
@@ -112,4 +114,5 @@ function wait() {
 
 .logo.vue:hover {
   filter: drop-shadow(0 0 2em #42b883aa);
-}</style>
+}
+</style>
