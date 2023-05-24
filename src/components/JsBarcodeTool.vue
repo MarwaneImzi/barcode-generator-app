@@ -7,7 +7,9 @@ var url = ref('')
 
 onUpdated(() => {
     JsBarcode('#barcodeid', props.bProp)
-    SaveBarcodeSVG()
+    if(props.bProp != 'cleared'){
+        SaveBarcodeSVG()
+    }
 })
 
 function SaveBarcodeSVG() {
