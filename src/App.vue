@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, onUnmounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref, watch } from 'vue';
 import BarcodesView from './components/BarcodesView.vue'
 import BarcodeConvertor from './components/JsBarcodeTool.vue'
 
@@ -7,19 +7,27 @@ var barcodeProp = ref()
 var barcode = ref()
 var barecodeStorage = ref([])
 
+
 onMounted(() => {
   barecodeStorage.value = JSON.parse(localStorage.getItem('barcodeData'))
 })
 
 const SaveBarcode = () => {
-  barcodeProp.value = barcode.value.toUpperCase()
   barecodeStorage.value = JSON.parse(localStorage.getItem('barcodeData'))
+  barcodeProp.value = barcode.value.toUpperCase()
+  
 }
 
 const DeleteBarcodes = () => {
   localStorage.removeItem('barcodeData')
   barecodeStorage.value = JSON.parse(localStorage.getItem('barcodeData'))
-  window.location.reload()
+  //window.location.reload()
+}
+
+function wait() {
+  setTimeout(function(){
+              barecodeStorage.value = JSON.parse(localStorage.getItem('barcodeData'))
+            }, 1000)
 }
 </script>
 
@@ -61,8 +69,11 @@ const DeleteBarcodes = () => {
         <!-- Preview Box -->
         <div class="container mx-auto">
           <div class="flex flex-wrap-reverse justify-center">
+            <BarcodeConvertor v-if="barcode != null" :bProp="barcodeProp" style="display:none"/>
+            <!-- Really not good practice but i could not figure this out -->
+            {{ wait() }}
             <BarcodesView :bStorage="barecodeStorage" />
-            <BarcodeConvertor v-if="barcode != null" :bProp="barcodeProp" />
+            
           </div>
         </div>
 
@@ -71,7 +82,7 @@ const DeleteBarcodes = () => {
       </div>
     </div>
   </div>
-  <footer class="text-gray-400 bg-slate-900 body-font">
+  <footer class="text-gray-400 bg-slate-900 body-font noPrint">
   <div class="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
     <p class="text-sm text-gray-400 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-800 sm:py-2 sm:mt-0 mt-4">© 2023 Marwane —
       <a href="https://github.com/MarwaneImzi" class="text-gray-500 ml-1" target="_blank" rel="noopener noreferrer">MarwaneImzi</a>

@@ -2,14 +2,6 @@
 import { onMounted, onUpdated, ref } from 'vue';
 
 var props = defineProps(['bStorage'])
-onMounted(() => {
-})
-onUpdated(() => {
-    console.log(props.bStorage)
-})
-
-console.log(props.bStorage)
-
 
 </script>
 
