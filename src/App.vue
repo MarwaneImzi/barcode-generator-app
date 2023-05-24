@@ -11,7 +11,6 @@ var barecodeStorage = ref([])
 const SaveBarcode = () => {
   if(barcode.value != '' || barcode.value.trim() != ''){
     barcodeProp.value = barcode.value.toUpperCase().trim()
-  console.log(barcode)
   }
 }
 
@@ -57,28 +56,23 @@ function wait() {
             </div>
           </div>
         </div>
-        <div class="border-b-2 border-gray-500 container mx-auto"></div>
-        <div class="container mx-auto">
-          <div class="flex my-4 noPrint justify-between">
-            <a @click="DeleteBarcodes" class="cursor-pointer hover:underline">Clear</a>
-            <a onclick="window.print()" class="cursor-pointer hover:underline">Print</a>
-          </div>
-        </div>
-
-
-        <!-- Preview Box -->
-        <div class="container mx-auto">
+        <div class="noPrint border-b-2 border-gray-700 container mx-auto"></div>
+                <!-- Preview Box -->
+                <div class="container mx-auto">
           <div class="flex flex-wrap-reverse justify-center">
             <BarcodeConvertor :bProp="barcodeProp" style="display:none" />
             <!-- Really not good practice but i could not figure this out -->
             {{ wait() }}
             <BarcodesView :bStorage="barecodeStorage" />
-
           </div>
         </div>
-
-
-
+        <div class="noPrint border-b-2 border-gray-700 container mx-auto"></div>
+        <div class="container mx-auto">
+          <div class="flex mt-4 noPrint justify-around">
+            <a @click="DeleteBarcodes" class="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded">Clear</a>
+            <a onclick="window.print()" class="bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-500 hover:border-transparent rounded">Print</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
