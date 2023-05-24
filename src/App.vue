@@ -14,7 +14,7 @@ onMounted(() => {
 
 const SaveBarcode = () => {
   barecodeStorage.value = JSON.parse(localStorage.getItem('barcodeData'))
-  barcodeProp.value = barcode.value.toUpperCase()
+  barcodeProp.value = barcode.value.toUpperCase().trim()
   
 }
 
@@ -47,7 +47,7 @@ function wait() {
               <div class="p-2 w-full">
                 <div class="relative">
                   <label for="barcode" class="leading-7 text-sm text-gray-400">Barcode (Code128)</label>
-                  <input type="text" v-model="barcode" v-on:keyup.enter="SaveBarcode" style="text-transform: uppercase;"
+                  <input type="text" v-model.trim="barcode" v-on:keyup.enter="SaveBarcode" style="text-transform: uppercase;"
                     class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-green-500 focus:bg-gray-900 focus:ring-2 focus:ring-green-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                 </div>
               </div>
