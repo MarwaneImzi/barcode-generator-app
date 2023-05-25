@@ -76,7 +76,7 @@ function wait() {
         
         <!-- Preview Box -->
         <div class="container mx-auto">
-          <div class="noPrint hidden" style>{{ listViewCSS = (!viewToggle) ? 'flex flex-wrap-reverse justify-center' : 'flex flex-col justify-center' }}</div>
+          <div class="noPrint hidden" style>{{ listViewCSS = (!viewToggle) ? 'flex flex-wrap-reverse justify-center' : 'flex flex-col flex-col-reverse justify-center' }}</div>
           <div :class="listViewCSS">
             <BarcodeConvertor :bProp="barcodeProp" style="display:none" />
             <!-- Really not good practice but i could not figure this out -->
