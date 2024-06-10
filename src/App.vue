@@ -154,7 +154,6 @@ function wait() {
   </footer>
 </template>
 
-<!-- Style -->
 <style scoped>
 @media print {
   .noPrint {
